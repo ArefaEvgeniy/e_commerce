@@ -4,9 +4,7 @@ from decimal import Decimal
 from typing import Dict, Optional, Tuple
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.db import transaction
-from django.utils import timezone
 
 from payments.models import Payment
 
