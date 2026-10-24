@@ -1,0 +1,174 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python manage.py migrate && uvicorn e_commerce.asgi:application --reload --host 0.0.0.0 --port 8000"
+    volumes:
+      - .:/app
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+        - e_commerce_network
+
+  app_dupe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python manage.py migrate && uvicorn e_commerce.asgi:application --reload --host 0.0.0.0 --port 8001"
+    volumes:
+      - .:/app
+    expose:
+      - "8001"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - e_commerce_network
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    expose:
+      - "5432"
+    networks:
+      - e_commerce_network
+
+  redis:
+    image: redis:7-alpine
+    expose:
+      - "6379"
+    networks:
+      - e_commerce_network
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "celery -A e_commerce beat --loglevel=info"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - e_commerce_network
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "celery -A e_commerce worker --loglevel=info"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - e_commerce_network
+
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "celery -A e_commerce flower --port=5555"
+    volumes:
+      - .:/app
+    ports:
+      - "5555:5555"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - celery_worker
+    networks:
+      - e_commerce_network
+
+  kanchi:
+    image: getkanchi/kanchi:latest
+    container_name: kanchi_ecommerce
+    ports:
+      - "3000:8765"
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+    volumes:
+      - kanchi-data:/data
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - celery_worker
+    networks:
+        - e_commerce_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+      - ./static:/code/static
+    depends_on:
+      app:
+        condition: service_started
+      app_dupe:
+        condition: service_started
+      openssl:
+        condition: service_completed_successfully
+    networks:
+        - e_commerce_network
+
+  openssl:
+    image: alpine/openssl
+    restart: 'no'
+    volumes:
+      - ./certs:/certs
+    command: >
+      req -x509 -nodes -newkey rsa:4096 -keyout /certs/cert.key 
+      -out /certs/cert.crt -days 365 
+      -subj "/C=UA/ST=Dnipro/L=Dnipro/O=Hillel/OU=lector/CN=localhost"
+
+  e_commerce_minio:
+    image: docker.io/pgsty/silo:RELEASE.2026-09-16T00-00-00Z
+    container_name: e_commerce_minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_KEY}
+    command: server /data --console-address ":9001"
+    volumes:
+      - ./data:/data
+    networks:
+      - e_commerce_network
+
+volumes:
+  kanchi-data:
+
+networks:
+  e_commerce_network:
+    driver: bridge

@@ -1,0 +1,263 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-26 16:56+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\payments\templates\checkout.html:13
+msgid "Оплата замовлення"
+msgstr "Order Payment"
+
+#: .\payments\templates\checkout.html:15
+msgid "Сума:"
+msgstr "Amount:"
+
+#: .\payments\templates\checkout.html:19
+msgid "Валюта:"
+msgstr "Currency:"
+
+#: .\payments\templates\checkout.html:27
+msgid "Опис платежу:"
+msgstr "Payment Description:"
+
+#: .\payments\templates\checkout.html:31
+msgid "Дані картки:"
+msgstr "Card Details"
+
+#: .\payments\templates\checkout.html:34
+msgid "Оплатити"
+msgstr "Pay"
+
+#: .\shop\models.py:11
+msgid "Назва категорії"
+msgstr "Category Name"
+
+#: .\shop\models.py:12
+msgid "Слаг категорії"
+msgstr "Category Slag"
+
+#: .\shop\models.py:14
+msgid "Активна"
+msgstr "Active"
+
+#: .\shop\models.py:20
+msgid "Категорія"
+msgstr "Category"
+
+#: .\shop\models.py:21
+msgid "Категорії"
+msgstr "Categories"
+
+#: .\shop\models.py:33
+msgid "Назва товару"
+msgstr "Product Name"
+
+#: .\shop\models.py:34
+msgid "Слаг товару"
+msgstr "Product Slag"
+
+#: .\shop\models.py:35
+msgid "Опис товару"
+msgstr "Product Description"
+
+#: .\shop\models.py:37 .\shop\templates\cart\detail.html:20
+msgid "Ціна"
+msgstr "Price"
+
+#: .\shop\models.py:38
+msgid "Ціна зі знижкою"
+msgstr "Discounted Price"
+
+#: .\shop\models.py:39
+msgid "Кількість на складі"
+msgstr "Quantity in Stock"
+
+#: .\shop\models.py:40
+msgid "Активний"
+msgstr "Active"
+
+#: .\shop\models.py:41
+msgid "Дата створення"
+msgstr "Date Created"
+
+#: .\shop\models.py:42
+msgid "Дата оновлення"
+msgstr "Date Updated"
+
+#: .\shop\models.py:48
+msgid "Товар"
+msgstr "Product"
+
+#: .\shop\models.py:49 .\shop\templates\product\list.html:5
+msgid "Товари"
+msgstr "Products"
+
+#: .\shop\models.py:67
+msgid "Номер телефону"
+msgstr "Phone Number"
+
+#: .\shop\models.py:68
+msgid "Адреса"
+msgstr "Address"
+
+#: .\shop\models.py:71
+msgid "Клієнт"
+msgstr "Customer"
+
+#: .\shop\models.py:72
+msgid "Клієнти"
+msgstr "Customers"
+
+#: .\shop\orders\models.py:9
+msgid "Очікує"
+msgstr "Pending"
+
+#: .\shop\orders\models.py:10
+msgid "Оплачено"
+msgstr "Paid"
+
+#: .\shop\orders\models.py:11
+msgid "Створено"
+msgstr "Created"
+
+#: .\shop\orders\models.py:12
+msgid "Доставлено"
+msgstr "Delivered"
+
+#: .\shop\orders\models.py:13
+msgid "Скасовано"
+msgstr "Cancelled"
+
+#: .\shop\orders\models.py:34 .\shop\orders\models.py:35
+#: .\shop\templates\order\create_order.html:5
+#: .\shop\templates\order\success_order.html:5
+msgid "Замовлення"
+msgstr "Order"
+
+#: .\shop\orders\models.py:49
+msgid "Елемент замовлення"
+msgstr "Order Item"
+
+#: .\shop\orders\models.py:50
+msgid "Елементи замовлення"
+msgstr "Order Items"
+
+#: .\shop\templates\cart\detail.html:6
+msgid "Кошик"
+msgstr "Cart"
+
+#: .\shop\templates\cart\detail.html:11
+msgid "Ваш кошик"
+msgstr "Your cart"
+
+#: .\shop\templates\cart\detail.html:13
+msgid "Ваш кошик порожній"
+msgstr "Your cart is empty"
+
+#: .\shop\templates\cart\detail.html:19
+#| msgid "Назва товару"
+msgid "Назва"
+msgstr "Product Name"
+
+#: .\shop\templates\cart\detail.html:21
+#| msgid "Кількість на складі"
+msgid "Кількість"
+msgstr "Quantity in Stock"
+
+#: .\shop\templates\cart\detail.html:22
+#| msgid "Сума:"
+msgid "Сума"
+msgstr "Amount:"
+
+#: .\shop\templates\cart\detail.html:33
+msgid "Видалити"
+msgstr "Delete"
+
+#: .\shop\templates\cart\detail.html:40
+msgid "Загальна сума:"
+msgstr "Total amount:"
+
+#: .\shop\templates\cart\detail.html:47
+msgid "Очистити кошик"
+msgstr "Clear cart"
+
+#: .\shop\templates\cart\detail.html:48
+#| msgid "Оплата замовлення"
+msgid "Оформити замовлення"
+msgstr "Order Payment"
+
+#: .\shop\templates\cart\detail.html:49
+msgid "Продовжити покупки"
+msgstr "Continue shopping"
+
+#: .\shop\templates\order\create_order.html:10
+#| msgid "Елемент замовлення"
+msgid "Оформлення замовлення"
+msgstr "Order Item"
+
+#: .\shop\templates\order\create_order.html:15
+#: .\shop\templates\order\success_order.html:11
+msgid "Загальна сума до сплати:"
+msgstr "Total amount to pay:"
+
+#: .\shop\templates\order\create_order.html:17
+#| msgid "Елементи замовлення"
+msgid "Підтвердити замовлення"
+msgstr "Order Items"
+
+#: .\shop\templates\order\success_order.html:10
+#| msgid "Оплата замовлення"
+msgid "Ваше замовлення"
+msgstr "Order Payment"
+
+#: .\shop\templates\order\success_order.html:10
+msgid "успішно оформлено. Дякуємо за покупку!"
+msgstr "Successfully processed. Thank you for your purchase!"
+
+#: .\shop\templates\order\success_order.html:12
+#| msgid "Оплата замовлення"
+msgid "Статус замовлення:"
+msgstr "Order Payment"
+
+#: .\shop\templates\order\success_order.html:13
+msgid "Повернутися до магазину"
+msgstr "Return to store"
+
+#: .\shop\templates\product\list.html:10
+#| msgid "Опис товару"
+msgid "Список товарів"
+msgstr "Product Description"
+
+#: .\shop\templates\product\list.html:16
+msgid "Ціна:"
+msgstr "Price:"
+
+#: .\shop\templates\product\list.html:17
+msgid "В наявності:"
+msgstr "In stock:"
+
+#: .\shop\templates\product\list.html:18
+msgid "Детальніше"
+msgstr "More details"
+
+#: .\shop\templates\product\list.html:25
+msgid "Додати до кошика"
+msgstr "Add to cart"
+
+#: .\templates\base.html:24
+msgid "Змінити мову"
+msgstr "Change language"

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>{% translate "Замовлення" %}</title>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>{% translate "Оформлення замовлення" %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div>
+                <h>{% translate "Загальна сума до сплати:" %} <strong>{{ total_price }}</strong></h>
+            </div>
+            <button type="submit">{% translate "Підтвердити замовлення" %}</button>
+        </form>
+    </div>
+{% endblock %}

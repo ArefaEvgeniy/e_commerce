@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>{% translate "Товари" %}</title>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>{% translate "Список товарів" %}</h2>
+        <ul>
+            {% for product in products %}
+                <div>
+                    <li>
+                        <h3>{{ product.name }}</h3>
+                        <p>{% translate "Ціна:" %} {{ product.current_price }}</p>
+                        <p>{% translate "В наявності:" %} {{ product.stock }}</p>
+                        <a href="#">{% translate "Детальніше" %}</a>
+                    </li>
+                </div>
+                <div>
+                    <form action="{% url 'cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}">
+                        <button type="submit">{% translate "Додати до кошика" %}</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

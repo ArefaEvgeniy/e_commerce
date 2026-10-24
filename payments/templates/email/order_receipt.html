@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div>
+            <h1>Чек по замовленню #{{ order.id }}</h1>
+            <h3>Товари:</h3>
+            <ul>
+                {% for item in order.items.all %}
+                    <li>{{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Загальна сума: {{ order.total_price }}</h3>
+        </div>
+    </body>
+</html>

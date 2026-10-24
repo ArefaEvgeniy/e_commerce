@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>{% translate "Кошик" %}</title>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>{% translate "Ваш кошик" %}</h2>
+        {% if not cart.cart %}
+            <p>{% translate "Ваш кошик порожній" %}</p>
+        {% else %}
+            <div>
+                <table>
+                    <thead></thead>
+                        <tr>
+                            <th>{% translate "Назва" %}</th>
+                            <th>{% translate "Ціна" %}</th>
+                            <th>{% translate "Кількість" %}</th>
+                            <th>{% translate "Сума" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td><strong>{{ item.total_price }}</strong></td>
+                                <td>
+                                    <a href="{% url 'cart_remove' item.product.id %}">{% translate "Видалити" %}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">{% translate "Загальна сума:" %}</td>
+                            <td><strong>{{ cart.get_total_price }}</strong></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div>
+                    <a href="{% url 'cart_clear' %}">{% translate "Очистити кошик" %}</a>
+                    <a href="{% url 'order_create' %}">{% translate "Оформити замовлення" %}</a>
+                    <a href="{% url 'product_list' %}">{% translate "Продовжити покупки" %}</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
