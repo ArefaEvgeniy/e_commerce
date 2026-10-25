@@ -118,4 +118,4 @@ jobs:
 
             - name: Check for test coverage
               run: |
-                    python -m pytest --cov=payments --cov-report=xml tests
+                    python -m pytest --cov=payments --cov-report=term:skip-covered tests
