@@ -97,4 +97,4 @@ jobs:
 
             - name: Run tests
               run: |
-                   pytest shop
+                    python manage.py test --settings=e_commerce.settings
