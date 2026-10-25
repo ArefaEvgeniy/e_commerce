@@ -33,13 +33,29 @@ jobs:
             postgres:
                 image: postgres:latest
                 env:
-                    DB_NAME: test_db
-                    DB_USER: test_user
-                    DB_PASSWORD: test_password
-                    DB_HOST: postgres
-                    DB_PORT: 5432
+                    POSTGRES_DB: test_db
+                    POSTGRES_USER: test_user
+                    POSTGRES_PASSWORD: test_password
                 ports:
                     - 5432:5432
+            redis:
+                image: redis:7
+                ports:
+                  - 6379:6379
+                options: >-
+                  --health-cmd "redis-cli ping"
+                  --health-interval 10s
+                  --health-timeout 5s
+                  --health-retries 5
+        env:
+            DJANGO_SETTINGS_MODULE: e_commerce.settings
+            DB_NAME: test_db
+            DB_USER: test_user
+            DB_PASSWORD: test_password
+            DB_HOST: postgres
+            DB_PORT: 5432
+            CELERY_BROKER_URL: redis://127.0.0.1:6379/0
+            CELERY_RESULT_BACKEND: redis://127.0.0.1:6379/1
         steps:
             - name: Checkout code
               uses: actions/checkout@v6
@@ -58,11 +74,7 @@ jobs:
               run: |
                   python manage.py makemigrations
                   python manage.py migrate
-              env:
-                  DJANGO_SETTINGS_MODULE: e_commerce.settings
 
             - name: Run tests
               run: |
                    pythom manage.py test shop
-              env:
-                  DJANGO_SETTINGS_MODULE: e_commerce.settings
