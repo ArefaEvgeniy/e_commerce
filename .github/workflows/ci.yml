@@ -97,4 +97,4 @@ jobs:
 
             - name: Run tests
               run: |
-                    python -m pytest tests/shop/ -v
+                    python -m pytest tests -v
