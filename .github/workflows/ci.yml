@@ -97,4 +97,4 @@ jobs:
 
             - name: Run tests
               run: |
-                   pythom manage.py test shop
+                   pythom manage.py pytest shop
