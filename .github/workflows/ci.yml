@@ -114,8 +114,4 @@ jobs:
 
             - name: Run tests
               run: |
-                    python -m pytest tests -v
-
-            - name: Check for test coverage
-              run: |
                     python -m pytest --cov=payments --cov-report=term:skip-covered tests
