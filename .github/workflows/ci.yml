@@ -97,4 +97,4 @@ jobs:
 
             - name: Run tests
               run: |
-                   python manage.py pytest shop
+                   pytest shop
