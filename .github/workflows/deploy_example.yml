@@ -44,7 +44,11 @@ jobs:
                   context: .
                   dockerfile: ./Dockerfile
                   push: true
-                  tags: ${{ steps.meta-backend.outputs.tags }}
+                  tags: |
+                      ${{ steps.meta-backend.outputs.tags }}
+                      ${{ env.BACKEND_IMAGE }}:latest
                   labels: ${{ steps.meta-backend.outputs.labels }}
                   cache-from: type=gha
                   cache-to: type=gha,mode=max
+                  build-args: |
+                      BUILD_VERSION=${{ githab.sha }}
