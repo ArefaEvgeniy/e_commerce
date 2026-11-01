@@ -109,13 +109,11 @@ ASGI_APPLICATION = 'e_commerce.asgi.application'
 #     }
 # }
 
-REDIS_HOST = env.str('REDIS_HOST', default='127.0.0.1')
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(REDIS_HOST, 6379)],
+            "hosts": [("redis", 6379)],
         },
     }
 }
@@ -249,9 +247,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://localhost',
     'https://127.0.0.1',
 ]
-CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = None
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = None
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

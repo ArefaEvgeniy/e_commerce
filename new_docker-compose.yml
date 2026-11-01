@@ -1,0 +1,49 @@
+services:
+  ecommerce:
+    image: faen79/e-commerce:latest
+    container_name: e-commerce
+    restart: unless-stopped
+
+    ports:
+      - "80:80"
+      - "443:443"
+      - "5555:5555"
+      - "9000:9000"
+      - "9001:9001"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - redis_data:/var/lib/redis
+      - minio_data:/data
+
+    networks:
+      - ecommerce_network
+
+  kanchi:
+    image: getkanchi/kanchi:latest
+    container_name: kanchi_ecommerce
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "8765:8765"
+    environment:
+      CELERY_BROKER_URL: redis://ecommerce:6379/0
+      DATABASE_URL: sqlite:////data/kanchi.db
+    volumes:
+      - kanchi_data:/data
+    depends_on:
+      - ecommerce
+    networks:
+      - ecommerce_network
+
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  kanchi_data:
+
+
+networks:
+  ecommerce_network:
+    driver: bridge
