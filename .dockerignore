@@ -1,5 +1,43 @@
+# Python
 venv/
+.venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Git
 .git/
+.gitignore
+
+# IDE
 .idea/
+.vscode/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local data
+data/
+certs/
+*.sqlite3
+*.db
+
+# Python tests and cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# Temporary files
+*.tmp
+*.bak
