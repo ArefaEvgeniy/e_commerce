@@ -1,3 +1,4 @@
+FROM docker.io/pgsty/silo:RELEASE.2026-10-26T00-00-00Z AS silo
 FROM python:3.12-slim-bookworm
 
 ARG TARGETARCH
@@ -94,13 +95,12 @@ RUN apt-get update && \
         && rm -rf /var/lib/apt/lists/*
 
 # --------------------------------------------------
-# Install MinIO
+# Install Silo (MinIO-compatible server)
 # --------------------------------------------------
 
-RUN curl -fsSL \
-    "https://dl.min.io/server/minio/release/linux-${TARGETARCH}/minio" \
-    -o /usr/local/bin/minio \
-    && chmod +x /usr/local/bin/minio
+COPY --from=silo /usr/bin/silo /usr/local/bin/silo
+
+RUN chmod +x /usr/local/bin/silo
 
 # --------------------------------------------------
 # Install Python dependencies
