@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 Env.read_env(BASE_DIR / '.env')
 
 env = Env(
-    DEBUG=(bool, True),
+    DEBUG=(bool, False),
     SECRET_KEY=(str, ''),
     ALLOWED_HOSTS=(list, ['127.0.0.1', 'localhost'])
 )
@@ -109,11 +109,13 @@ ASGI_APPLICATION = 'e_commerce.asgi.application'
 #     }
 # }
 
+REDIS_HOST = env.str('REDIS_HOST', default='127.0.0.1')
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis", 6379)],
+            "hosts": [(REDIS_HOST, 6379)],
         },
     }
 }
@@ -245,10 +247,11 @@ LOW_STOCK_THRESHOLD = 5
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost',
+    'https://127.0.0.1',
 ]
-CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SAMESITE = 'Lax'
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
